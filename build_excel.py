@@ -199,14 +199,16 @@ def build(items, quote_no, date_str, client, project, logo_path=None):
         ws.cell(ROW,2,r['desc']).font      = F(size=8.5, italic=is_acc)
         ws.cell(ROW,2).alignment = ALW; ws.cell(ROW,2).fill=fill; ws.cell(ROW,2).border=all_thin()
 
-        # W, D, H
+        # W, D, H — store as numbers to avoid green triangle warnings
         for col, val in [(3, r.get('w')), (4, r.get('d')), (5, r.get('h'))]:
-            ws.cell(ROW,col, fmt_n(val) if val else '')
+            num_val = int(val) if val and float(val)==int(float(val)) else (float(val) if val else None)
+            ws.cell(ROW,col, num_val)
             ws.cell(ROW,col).font=F(size=9); ws.cell(ROW,col).alignment=AC
             ws.cell(ROW,col).fill=fill; ws.cell(ROW,col).border=all_thin()
 
-        # Qty
-        ws.cell(ROW,6, fmt_n(qty) if qty else '')
+        # Qty — store as number
+        qty_val = int(qty) if qty and float(qty)==int(float(qty)) else (float(qty) if qty else None)
+        ws.cell(ROW,6, qty_val)
         ws.cell(ROW,6).font=F(size=9); ws.cell(ROW,6).alignment=AC
         ws.cell(ROW,6).fill=fill; ws.cell(ROW,6).border=all_thin()
 
