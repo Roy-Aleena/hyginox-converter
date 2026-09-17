@@ -285,7 +285,6 @@ def build(items, quote_no, date_str, client, project, logo_path=None):
     from openpyxl.worksheet.page import PageMargins
     ws.page_margins = PageMargins(left=0.4, right=0.4, top=0.5,
                                   bottom=0.5, header=0.3, footer=0.3)
-    ws.print_title_rows = '1:10'
     ws.print_area = f'A1:H{ROW}'
 
     out = tempfile.NamedTemporaryFile(delete=False, suffix='_HYGINOX.xlsx')
