@@ -274,10 +274,18 @@ def build(items, quote_no, date_str, client, project, logo_path=None):
 
     # ── Page setup ────────────────────────────────────────────────────────────
     ws.freeze_panes = 'A11'
+
+    # Print — landscape A4, all cols on 1 page wide, unlimited vertical pages
     ws.page_setup.paperSize   = ws.PAPERSIZE_A4
-    ws.page_setup.orientation = 'landscape'
+    ws.page_setup.orientation = 'portrait'
     ws.page_setup.fitToPage   = True
     ws.page_setup.fitToWidth  = 1
+    ws.page_setup.fitToHeight = 0
+
+    from openpyxl.worksheet.page import PageMargins
+    ws.page_margins = PageMargins(left=0.4, right=0.4, top=0.5,
+                                  bottom=0.5, header=0.3, footer=0.3)
+    ws.print_title_rows = '1:10'
     ws.print_area = f'A1:H{ROW}'
 
     out = tempfile.NamedTemporaryFile(delete=False, suffix='_HYGINOX.xlsx')
